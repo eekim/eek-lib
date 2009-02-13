@@ -19,6 +19,23 @@ sub r {
     return $r;
 }
 
+sub md {
+    my $d = shift;
+    $d =~ s/\/$//;
+    @dir = split('/', $d);
+    $d = shift @dir;
+    if ($d && !-d $d) {
+        die "Could not create directory $d:\n    $!" unless mkdir $d;
+    }
+    while (@dir) {
+        $d .= '/' . shift @dir;
+        if (!-d $d) {
+            die "Could not create directory $d:\n    $!" unless mkdir $d;
+        }
+    }
+
+}
+
 1;
 
 __END__
@@ -59,6 +76,11 @@ until it receives valid input.
 
 If $options is 'yn', it will automatically append "(Y/N)" after the
 question, and it will return 1 or 0 depending on the response.
+
+=head2 md( $dir )
+
+Makes the directory $dir and all the prerequisite parent directories (if
+necessary). Dies if unsuccessful.
 
 =head1 AUTHORS
 
