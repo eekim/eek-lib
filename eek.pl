@@ -36,7 +36,7 @@ Version 0.0.0
 Utility functions for Perl scripts I find myself writing over and over
 again.
 
-    require eek.pl;
+    require 'eek.pl';
 
     my $is_happy = &r('Happy?', 'yn);
     if ($is_happy) {
