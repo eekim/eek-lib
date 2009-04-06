@@ -19,6 +19,19 @@ sub r {
     return $r;
 }
 
+sub read_hash {
+    my $hash_file = shift;
+    my %h;
+    open(F, $hash_file);
+    while (<F>) {
+        chomp;
+        my ($key, $val) = split(/:/);
+        $h{$key} = $val;
+    }
+    close(F);
+    return \%h;
+}
+
 sub md {
     my $d = shift;
     $d =~ s/\/$//;
@@ -76,6 +89,10 @@ until it receives valid input.
 
 If $options is 'yn', it will automatically append "(Y/N)" after the
 question, and it will return 1 or 0 depending on the response.
+
+=head2 read_hash( $hash_file )
+
+Reads a colon delimited file and returns a hash reference.
 
 =head2 md( $dir )
 
